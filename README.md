@@ -2,12 +2,13 @@
 
 Aplicación utilizada en la cursada 2020 de Ingenieria de Software. UTN-FRLP
 
+
 ## Grupo 7
 
  - Cargnelutti, Gustavo Alejandro
  - Figueira, Leonel Sergio
  - Soraire, Miguel Emmanuel
-
+ - Kapko,J. Maximiliano
 ## Dependencias
 
  - node > v10

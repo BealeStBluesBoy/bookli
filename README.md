@@ -6,6 +6,7 @@ Aplicación utilizada en la cursada 2020 de Ingenieria de Software. UTN-FRLP
 
  - Cargnelutti, Gustavo Alejandro
  - Figueira, Leonel Sergio
+ - Soraire, Miguel Emmanuel
 
 ## Dependencias
 

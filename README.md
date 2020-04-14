@@ -2,6 +2,8 @@
 
 Aplicación utilizada en la cursada 2020 de Ingenieria de Software. UTN-FRLP
 
+## Grupo 7
+
 ## Dependencias
 
  - node > v10

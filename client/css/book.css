@@ -2,17 +2,17 @@
     display: grid;
     grid-template-rows: minmax(180px, auto) 1fr;
     grid-template-columns: 150px 1fr;
-    grid-template-areas:
-        'cover header'
-        'body body'
-        'action action';
-
+    grid-template-areas: 'cover header' 'body body' 'action action';
     transition: opacity 0.3s;
     cursor: pointer;
 }
 
 .book-link {
     all: unset;
+}
+
+.book-link:hover {
+    opacity: 0.5;
 }
 
 .book.book--full {
@@ -69,12 +69,8 @@
         height: 300px;
         grid-template-rows: 1fr 2fr;
         grid-template-columns: 250px 1fr;
-        grid-template-areas:
-            'cover header'
-            'cover body'
-            'action action';
+        grid-template-areas: 'cover header' 'cover body' 'action action';
     }
-
     .book__cover {
         margin: 0;
         /*repetimos el borde porque en ocaciones las imagenes son mas chicas*/
@@ -82,11 +78,9 @@
         border-bottom-left-radius: var(--radius);
         border-top-left-radius: var(--radius);
     }
-
     .book__cover img {
         max-width: 100%;
         max-height: unset;
-
         border-bottom-left-radius: var(--radius);
         border-top-left-radius: var(--radius);
     }

@@ -42,10 +42,7 @@ const Book = db.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
-        //      country: {
-        //        type: Sequelize.string,
-        //       allowNull: false,
-        //  },
+
         isbn: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -64,6 +61,10 @@ const Book = db.define(
             type: Sequelize.ENUM,
             allowNull: false,
             values: [AVAILABLE, READING, FINISHED],
+        },
+        country: {
+            type: Sequelize.STRING,
+            allowNull: false,
         },
     }, { tableName: 'Book' }
 );

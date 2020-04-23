@@ -49,6 +49,10 @@ async function addToFinishList() {
     renderBook(state.book);
 }
 
+async function goBack() {
+    history.length > 1 ? window.history.back() : window.close();
+}
+
 /**
  * Actualiza la UI
  **/
@@ -77,6 +81,8 @@ function renderBook(book) {
     if (book.status === 'FINISHED') {
         bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
     }
+
+    bookRefs.goBack.addEventListener('click', goBack);
 }
 
 /**

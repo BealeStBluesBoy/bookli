@@ -7,10 +7,6 @@
     cursor: pointer;
 }
 
-.book:hover {
-    opacity: 0.5
-}
-
 .book-link {
     all: unset;
 }

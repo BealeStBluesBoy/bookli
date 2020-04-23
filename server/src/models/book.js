@@ -25,8 +25,7 @@ const status = {
  *
  */
 const Book = db.define(
-    'Book',
-    {
+    'Book', {
         // Atributos
         title: {
             type: Sequelize.STRING,
@@ -43,6 +42,10 @@ const Book = db.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
+        //      country: {
+        //        type: Sequelize.string,
+        //       allowNull: false,
+        //  },
         isbn: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -62,8 +65,7 @@ const Book = db.define(
             allowNull: false,
             values: [AVAILABLE, READING, FINISHED],
         },
-    },
-    { tableName: 'Book' }
+    }, { tableName: 'Book' }
 );
 
 /**
@@ -81,8 +83,7 @@ const getAllBooks = (filter, status) => {
         };
 
         where = {
-            [Op.or]: [
-                {
+            [Op.or]: [{
                     title: like,
                 },
                 {
@@ -118,7 +119,7 @@ const getAllBooks = (filter, status) => {
  */
 const createBook = (data) => {
     if (!Object.prototype.hasOwnProperty.call(data, 'status')) {
-        data = { ...data, status: AVAILABLE };
+        data = {...data, status: AVAILABLE };
     }
 
     return Book.create(data);

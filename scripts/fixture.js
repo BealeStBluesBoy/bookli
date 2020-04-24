@@ -14,6 +14,7 @@ const initBooks = () => {
                 authors: ['Jorge Luis Borges'],
                 cover: '/assets/covers/el-aleph.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -28,6 +29,7 @@ const initBooks = () => {
                 authors: ['Rodolfo Walsh'],
                 cover: '/assets/covers/operacion-masacre.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -42,6 +44,7 @@ const initBooks = () => {
                 authors: ['David Thomas', 'Andrew Hunt'],
                 cover: '/assets/covers/pragmatic-programmer.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -57,6 +60,7 @@ const initBooks = () => {
                 authors: ['Steve McConnell'],
                 cover: '/assets/covers/code-complete.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -71,6 +75,7 @@ const initBooks = () => {
                 authors: ['Sir Arthur Conan Doyle'],
                 cover: '/assets/covers/sherlock.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -85,6 +90,7 @@ const initBooks = () => {
                 authors: ['George Orwell'],
                 cover: '/assets/covers/1984.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -99,6 +105,7 @@ const initBooks = () => {
                 authors: ['Franz Kafka'],
                 cover: '/assets/covers/trial.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -113,6 +120,7 @@ const initBooks = () => {
                 authors: ['Ray Bradbury'],
                 cover: '/assets/covers/fahrenheit.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -127,6 +135,7 @@ const initBooks = () => {
                 authors: ['Oscar Wilde'],
                 cover: '/assets/covers/earnest.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         )
         .then(() =>
@@ -141,6 +150,7 @@ const initBooks = () => {
                 authors: ['George Orwell'],
                 cover: '/assets/covers/animal-farm.jpg',
                 status: BookModel.status.AVAILABLE,
+                rate: 0,
             })
         );
 };

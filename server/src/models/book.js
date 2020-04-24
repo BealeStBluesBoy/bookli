@@ -63,6 +63,12 @@ const Book = db.define(
             values: [AVAILABLE, READING, FINISHED],
         },
 
+        country: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+   
+
         rating: {
             type: Sequelize.INTEGER,
             allowNull: false,

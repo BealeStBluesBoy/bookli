@@ -52,6 +52,13 @@ async function addToFinishList() {
 
 async function goBack() {
     history.length > 1 ? window.history.back() : window.close();
+}
+
+async function rateDetailBook(e) {
+    await bookService.rateBook(state.book.id, e.target.value);
+    state.book = await bookService.get(state.book.id);
+
+    renderBook(state.book);
 
 }
 

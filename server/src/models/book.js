@@ -19,21 +19,6 @@ const status = {
     FINISHED,
 };
 
-//calificacion 1
-const uno = '1';
-
-//calificacion 2
-const dos = '2';
-
-//calificacion 3
-const tres = '3';
-
-//calificacion 4
-const cuatro = '4';
-
-//calificacion 5
-const cinco = '5';
-
 /**
  * Modelo de libro.
  *
@@ -77,10 +62,11 @@ const Book = db.define(
             allowNull: false,
             values: [AVAILABLE, READING, FINISHED],
         },
-        rate: {
-            type: Sequelize.ENUM,
-            allowNull: true,
-            values: [uno, dos, tres, cuatro, cinco]
+        rating: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+            values: [0, 1, 2, 3, 4, 5]
         }
     },
     { tableName: 'Book' }
@@ -152,76 +138,6 @@ const createBook = (data) => {
 const getBook = (id) => Book.findOne({ where: { id: id } });
 
 /**
- *Cambia el rate de un libro a 5
- * Parametro id:id a buscar en la bd
- */
-
- const rateBookCinco = (id) => {
-     return Book.findOne({ where: { id: id } }).then((book) =>{
-        if (book != null) {
-            return book.update({ rate: cinco });
-        }
-        return null;
-     });
- };
-
- /**
- *Cambia el rate de un libro a 4
- * Parametro id:id a buscar en la bd
- */
-
-const rateBookCuatro = (id) => {
-    return Book.findOne({ where: { id: id } }).then((book) =>{
-       if (book != null) {
-           return book.update({ rate: cuatro });
-       }
-       return null;
-    });
-};
-
-/**
- *Cambia el rate de un libro a 3
- * Parametro id:id a buscar en la bd
- */
-
-const rateBookTres = (id) => {
-    return Book.findOne({ where: { id: id } }).then((book) =>{
-       if (book != null) {
-           return book.update({ rate: tres });
-       }
-       return null;
-    });
-};
-
-/**
- *Cambia el rate de un libro a 2
- * Parametro id:id a buscar en la bd
- */
-
-const rateBookDos = (id) => {
-    return Book.findOne({ where: { id: id } }).then((book) =>{
-       if (book != null) {
-           return book.update({ rate: dos });
-       }
-       return null;
-    });
-};
-
-/**
- *Cambia el rate de un libro a 1
- * Parametro id:id a buscar en la bd
- */
-
-const rateBookUno = (id) => {
-    return Book.findOne({ where: { id: id } }).then((book) =>{
-       if (book != null) {
-           return book.update({ rate: uno });
-       }
-       return null;
-    });
-};
-
-/**
  * Cambiar el estado de un libro a READING (leyendo).
  * Parámetro id: id a buscar en la base de datos.
  *
@@ -269,6 +185,24 @@ const finishBook = (id) => {
     });
 };
 
+/**
+ * Cambiar el rating de un libro solo si esta en FINISHED (terminado).
+ * Parámetro id: id a buscar en la base de datos.
+ * Parametro rating: rating a guardar.
+ *
+ */
+const rateBook = (id, rating) => {
+    return Book.findOne({ where: { id: id } }).then((book) => {
+        if (book != null) {
+            if (book.status !== FINISHED) {
+                return book;
+            }
+            return book.update({ rating: rating });
+        }
+        return null;
+    });
+};
+
 const BookModel = {
     Book: Book,
     status: status,
@@ -278,11 +212,7 @@ const BookModel = {
     start: startBook,
     makeAvailable: makeBookAvailable,
     finish: finishBook,
-    rate1: rateBookUno,
-    rate2: rateBookDos,
-    rate3: rateBookTres,
-    rate4: rateBookCuatro,
-    rate5: rateBookCinco,
+    rate: rateBook
 };
 
 module.exports = BookModel;

@@ -40,40 +40,13 @@ async function finishBook(id) {
     return resp;
 }
 
-async function rateBookUno(id) {
-    const resp = await fetch(`${BASE_URL}/books/${id}/1`, {
+async function rateBook(id, rating) {
+    const resp = await fetch(`${BASE_URL}/books/${id}/rate/${rating}`, {
         method: 'PUT',
     });
     return resp;
 }
 
-async function rateBookDos(id) {
-    const resp = await fetch(`${BASE_URL}/books/${id}/2`, {
-        method: 'PUT',
-    });
-    return resp;
-}
-
-async function rateBookTres(id) {
-    const resp = await fetch(`${BASE_URL}/books/${id}/3`, {
-        method: 'PUT',
-    });
-    return resp;
-}
-
-async function rateBookCuatro(id) {
-    const resp = await fetch(`${BASE_URL}/books/${id}/4`, {
-        method: 'PUT',
-    });
-    return resp;
-}
-
-async function rateBookCinco(id) {
-    const resp = await fetch(`${BASE_URL}/books/${id}/5`, {
-        method: 'PUT',
-    });
-    return resp;
-}
 export default {
     getAll,
     get,
@@ -81,9 +54,5 @@ export default {
     startBook,
     finishBook,
     makeBookAvailable,
-    rateBookUno,
-    rateBookDos,
-    rateBookTres,
-    rateBookCuatro,
-    rateBookCinco,
+    rateBook
 };

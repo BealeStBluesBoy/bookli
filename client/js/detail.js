@@ -49,32 +49,11 @@ async function addToFinishList() {
     renderBook(state.book);
 }
 
-async function addCalificacion() {
-    await bookService.rateBookCinco(state.book.id);
-    
+async function rateDetailBook(e) {
+    await bookService.rateBook(state.book.id, e.target.value);
+    state.book = await bookService.get(state.book.id);
 
-    
-}
-
-async function addCalificacion2() {
-    await bookService.rateBookCuatro(state.book.id);
-   
-
-}
-
-async function addCalificacion3() {
-    await bookService.rateBookTres(state.book.id);
-    
-}
-
-async function addCalificacion4() {
-    await bookService.rateBookDos(state.book.id);
-    
-}
-
-async function addCalificacion5() {
-    await bookService.rateBookUno(state.book.id);
-    
+    renderBook(state.book);
 }
 
 /**
@@ -104,23 +83,15 @@ function renderBook(book) {
 
     if (book.status === 'FINISHED') {
         bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
-    }
 
-    if (book.status === 'FINISHED') {
-        bookRefs.califica.addEventListener('click', addCalificacion)
-    }
+        document.getElementsByName("rate").forEach(element => {
+            element.addEventListener('click', rateDetailBook);
+            element.classList.remove("btn-selected");
+        });
 
-    if (book.status === 'FINISHED') {
-        bookRefs.califica2.addEventListener('click', addCalificacion2)
-    }
-    if (book.status === 'FINISHED') {
-        bookRefs.califica3.addEventListener('click', addCalificacion3)
-    }
-    if (book.status === 'FINISHED') {
-        bookRefs.califica4.addEventListener('click', addCalificacion4)
-    }
-    if (book.status === 'FINISHED') {
-        bookRefs.califica5.addEventListener('click', addCalificacion5)
+        if (book.rating > 0) {
+            document.getElementsByName("rate")[book.rating - 1].classList.add("btn-selected");
+        }
     }
 }
 

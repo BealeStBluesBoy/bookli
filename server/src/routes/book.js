@@ -106,86 +106,29 @@ router.put('/:id/finish', function (req, res) {
 });
 
 /**
- * Endpoint para cambiar el rate de un libro a 1.
+ * Endpoint para cambiar el rating un libro.
  * Recibe el id en req.params.id
+ * Recibe el rating en req.params.rating
  *
  */
-router.put('/:id/start', function (req, res) {
-    BookModel.rate1(req.params.id)
+router.put('/:id/rate/:rating', function (req, res) {
+    BookModel.rate(req.params.id, req.params.rating)
         .then((book) => {
             if (book == null) {
                 res.status(404).send(
                     'El libro ' + req.params.id + ' no fue encontrado'
                 );
-            } else res.status(200).send(book);
-        })
-        .catch(() => res.status(500).send('Error al obtener libro'));
-});
-
-/**
- * Endpoint para cambiar el rate de un libro a 2.
- * Recibe el id en req.params.id
- *
- */
-router.put('/:id/start', function (req, res) {
-    BookModel.rate2(req.params.id)
-        .then((book) => {
-            if (book == null) {
-                res.status(404).send(
-                    'El libro ' + req.params.id + ' no fue encontrado'
-                );
-            } else res.status(200).send(book);
-        })
-        .catch(() => res.status(500).send('Error al obtener libro'));
-});
-
-/**
- * Endpoint para cambiar el rate de un libro a 3.
- * Recibe el id en req.params.id
- *
- */
-router.put('/:id/start', function (req, res) {
-    BookModel.rate3(req.params.id)
-        .then((book) => {
-            if (book == null) {
-                res.status(404).send(
-                    'El libro ' + req.params.id + ' no fue encontrado'
-                );
-            } else res.status(200).send(book);
-        })
-        .catch(() => res.status(500).send('Error al obtener libro'));
-});
-
-/**
- * Endpoint para cambiar el rate de un libro a 4.
- * Recibe el id en req.params.id
- *
- */
-router.put('/:id/start', function (req, res) {
-    BookModel.rate4(req.params.id)
-        .then((book) => {
-            if (book == null) {
-                res.status(404).send(
-                    'El libro ' + req.params.id + ' no fue encontrado'
-                );
-            } else res.status(200).send(book);
-        })
-        .catch(() => res.status(500).send('Error al obtener libro'));
-});
-
-/**
- * Endpoint para cambiar el rate de un libro a 5.
- * Recibe el id en req.params.id
- *
- */
-router.put('/:id/start', function (req, res) {
-    BookModel.rate5(req.params.id)
-        .then((book) => {
-            if (book == null) {
-                res.status(404).send(
-                    'El libro ' + req.params.id + ' no fue encontrado'
-                );
-            } else res.status(200).send(book);
+            } else {
+                if (book.status !== BookModel.status.FINISHED) {
+                    res.status(400).send(
+                        'El libro ' +
+                            req.params.id +
+                            ' no está en la lista de lectura'
+                    );
+                } else {
+                    res.status(200).send(book);
+                }
+            }
         })
         .catch(() => res.status(500).send('Error al obtener libro'));
 });

@@ -62,11 +62,16 @@ const Book = db.define(
             allowNull: false,
             values: [AVAILABLE, READING, FINISHED],
         },
-        country: {
-            type: Sequelize.STRING,
+
+        rating: {
+            type: Sequelize.INTEGER,
             allowNull: false,
-        },
-    }, { tableName: 'Book' }
+            defaultValue: 0,
+            values: [0, 1, 2, 3, 4, 5]
+        }
+    },
+    { tableName: 'Book' }
+
 );
 
 /**
@@ -181,6 +186,24 @@ const finishBook = (id) => {
     });
 };
 
+/**
+ * Cambiar el rating de un libro solo si esta en FINISHED (terminado).
+ * Parámetro id: id a buscar en la base de datos.
+ * Parametro rating: rating a guardar.
+ *
+ */
+const rateBook = (id, rating) => {
+    return Book.findOne({ where: { id: id } }).then((book) => {
+        if (book != null) {
+            if (book.status !== FINISHED) {
+                return book;
+            }
+            return book.update({ rating: rating });
+        }
+        return null;
+    });
+};
+
 const BookModel = {
     Book: Book,
     status: status,
@@ -190,6 +213,7 @@ const BookModel = {
     start: startBook,
     makeAvailable: makeBookAvailable,
     finish: finishBook,
+    rate: rateBook
 };
 
 module.exports = BookModel;

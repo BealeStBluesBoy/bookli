@@ -49,8 +49,10 @@ async function addToFinishList() {
     renderBook(state.book);
 }
 
+
 async function goBack() {
     history.length > 1 ? window.history.back() : window.close();
+
 }
 
 /**
@@ -80,6 +82,15 @@ function renderBook(book) {
 
     if (book.status === 'FINISHED') {
         bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
+
+        document.getElementsByName("rate").forEach(element => {
+            element.addEventListener('click', rateDetailBook);
+            element.classList.remove("btn-selected");
+        });
+
+        if (book.rating > 0) {
+            document.getElementsByName("rate")[book.rating - 1].classList.add("btn-selected");
+        }
     }
 
     bookRefs.goBack.addEventListener('click', goBack);

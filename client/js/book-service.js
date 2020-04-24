@@ -40,6 +40,13 @@ async function finishBook(id) {
     return resp;
 }
 
+async function rateBook(id, rating) {
+    const resp = await fetch(`${BASE_URL}/books/${id}/rate/${rating}`, {
+        method: 'PUT',
+    });
+    return resp;
+}
+
 export default {
     getAll,
     get,
@@ -47,4 +54,5 @@ export default {
     startBook,
     finishBook,
     makeBookAvailable,
+    rateBook
 };

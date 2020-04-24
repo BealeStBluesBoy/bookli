@@ -64,6 +64,11 @@
     margin-top: var(--space-5);
 }
 
+.book__rating {
+    margin-top: var(--space-2);
+    text-align: center;
+}
+
 @media (min-width: 640px) {
     .book {
         height: 300px;

@@ -47,6 +47,11 @@
         <button class="btn btn-danger" data-ref="removeFromFinish">
             Volver a leer
         </button>
+        {% endif %}
+        <button class="btn btn-primary" data-ref="goBack">
+            Atras
+        </button>
+        {% if book.status == 'FINISHED' %}
         <div class="book__rating">
             <p>Puntuacion</p>
             <button name="rate" value="1" class="btn btn-primary">1</button>
@@ -56,9 +61,6 @@
             <button name="rate" value="5" class="btn btn-primary">5</button>
         </div>
         {% endif %}
-        <button class="btn btn-primary" data-ref="goBack">
-            Atras
-        </button>
     </div>
     {% endif %}
 </div>

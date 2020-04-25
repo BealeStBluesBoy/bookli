@@ -69,6 +69,54 @@
     text-align: center;
 }
 
+
+/*configuracion estilo estrellas*/
+
+label {
+    color: grey;
+}
+
+label:hover {
+    color: orange;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    cursor: pointer;
+    display: none;
+}
+
+input[type="radio"]:checked~label {
+    color: orange;
+    cursor: pointer;
+}
+
+#form {
+    width: 50px;
+    height: 50px;
+}
+
+#form p {
+    text-align: left;
+}
+
+label:hover,
+label:hover~label {
+    color: orange;
+}
+
+
+/*estilo de la calificacion*/
+
+.clasificacion {
+    display: inline-block;
+    direction: rtl;
+    /* right to left */
+    unicode-bidi: bidi-override;
+    /* bidi de bidireccional */
+    font-size: 29px;
+}
+
 @media (min-width: 640px) {
     .book {
         height: 300px;

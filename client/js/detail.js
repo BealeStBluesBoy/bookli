@@ -67,8 +67,7 @@ async function rateDetailBook(e) {
  **/
 function renderBook(book) {
     const bookRefs = render(
-        'book.html',
-        {
+        'book.html', {
             book: book,
             detail: true,
         },
@@ -97,8 +96,11 @@ function renderBook(book) {
 
         if (book.rating > 0) {
             document.getElementsByName("rate")[book.rating - 1].classList.add("btn-selected");
+        } else {
+
         }
     }
+
 
     bookRefs.goBack.addEventListener('click', goBack);
 }

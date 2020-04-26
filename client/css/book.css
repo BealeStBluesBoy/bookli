@@ -70,10 +70,78 @@
 }
 
 
+/*estilo popup de calificar libro*/
+
+.overlay {
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.overlay.active {
+    visibility: visible;
+}
+
+.popup {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 15px 0px rbga(0, 0, 0, 0.8);
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+    width: 60%;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: 1s ease all;
+}
+
+.popup.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.popup h3 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    /*opacity: 0;*/
+}
+
+.popup form .contenedor-btn {
+    display: inline-block;
+    direction: rtl;
+    /* right to left */
+    unicode-bidi: bidi-override;
+    /* bidi de bidireccional */
+    font-size: 29px;
+}
+
+.popup form .contendor-btn input {
+    width: 100%;
+    margin-bottom: 20px;
+    height: 52px;
+    line-height: 52px;
+    text-align: center;
+    border: 1px solid #BBBBBB;
+}
+
+
 /*configuracion estilo estrellas*/
+
+.estrella {
+    color: orange;
+    font-size: 25px;
+}
 
 label {
     color: grey;
+    transition: 1s ease all;
 }
 
 label:hover {

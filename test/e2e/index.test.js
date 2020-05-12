@@ -42,6 +42,19 @@ describe('Home Test', () => {
             );
     });
 
+    test('Deberia mostrar el placeholder en el boton de busqueda', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('body > header > div.search > input')
+            .assert.attributeContains(
+                'body > header > div.search > input',
+                'placeholder',
+                'Buscar...'
+                
+            );
+    });
+
     test('Deberia mostrar la lista de libros', browser => {
         browser
             .url(BASE_URL)

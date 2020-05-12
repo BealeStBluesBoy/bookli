@@ -172,4 +172,40 @@ describe('Detail view', () => {
             .element('.book__actions [data-ref=removeFromFinish]')
             .text.to.equal('Volver a leer');
     });
+
+    test('Deberia poder calificar un libro terminado', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]');
+
+        browser
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]');
+
+        browser.expect
+            .element('.book__actions [data-ref=addToFinish]')
+            .text.to.equal('Lo termine!');
+
+        browser
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            
+
+        browser.expect
+            .element('#popup > h3')
+            .text.to.equal('Califica el libro por favor');
+
+        browser
+        .click('#popup > form > div > label:nth-child(2)')
+        .pause(400)
+        .waitForElementVisible(
+            '.book__actions [data-ref=removeFromFinish]'
+        );
+        browser.expect
+        .element('.book__actions [data-ref=removeFromFinish]')
+        .text.to.equal('Volver a leer');
+
+     });
 });

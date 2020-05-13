@@ -50,7 +50,6 @@ async function removeFromReadingList() {
 }
 
 async function addToFinishList() {
-
     await bookService.finishBook(state.book.id);
     state.book = await bookService.get(state.book.id);
 
@@ -62,15 +61,11 @@ async function goBack() {
     history.length > 1 ? window.history.back() : window.close();
 }
 
-
-
 async function rateDetailBook(e) {
-
     await bookService.rateBook(state.book.id, e.target.value);
     state.book = await bookService.get(state.book.id);
 
     renderBook(state.book);
-
 }
 
 /**
@@ -87,37 +82,29 @@ function renderBook(book) {
 
     if (book.status === 'AVAILABLE') {
         bookRefs.addToList.addEventListener('click', addToReadingList);
-
     }
 
     if (book.status === 'READING') {
         bookRefs.removeFromList.addEventListener('click', removeFromReadingList);
         bookRefs.addToFinish.addEventListener('click', addToFinishList);
-
     }
 
     if (book.status === 'FINISHED') {
-
         if (book.rating > 0) {
             bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
-            ove.classList.remove('active');
-            popup.classList.remove('active');
-
+            document.getElementById('ove').classList.remove('active');
+            document.getElementById('popup').classList.remove('active');
         } else {
-            ove.classList.add('active');
+            document.getElementById('ove').classList.add('active');
             setTimeout(function() {
-
-                popup.classList.add('active');
+                document.getElementById('popup').classList.add('active');
             }, 300);
             document.getElementsByName("rate").forEach(element => {
                 element.addEventListener('click', rateDetailBook);
                 element.classList.remove("btn-selected");
             });
         }
-
-
     }
-
 
     bookRefs.goBack.addEventListener('click', goBack);
 }

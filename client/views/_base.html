@@ -15,16 +15,17 @@
         <title>Bookli</title>
     </head>
     <body class="app-layout">
-        <header class="header">
-            <div class="brand">
-                <img
-                    class="brand__logo"
-                    src="/assets/logo.svg"
-                    alt="bookli logo"
-                />
-                <span class="brand__name">Bookli</span>
-            </div>
-
+        <header  class="header">
+            <a href="/" class="brand">
+                <div  class="brand">
+                    <img
+                        class="brand__logo"
+                        src="/assets/logo.svg"
+                        alt="bookli logo"
+                    />
+                    <span  class="brand__name">Bookli</span>
+                </div>
+            </a>
             {% block search %} {% endblock %}
         </header>
 

@@ -6,6 +6,9 @@ const refs = getRefs();
 const state = {
     book: null,
 };
+const calificar = 0;
+
+
 
 /**
  * Obtiene el id de un libro a partir de un path
@@ -18,15 +21,19 @@ function getBookId(str) {
     }
 }
 
+
 /**
  * Agrega un libro a la lista de lectura
  *
  * Actualiza el libro y la UI
  **/
 async function addToReadingList() {
-    await bookService.startBook(state.book.id);
+    await bookService.rateBook(state.book.id, calificar.value);
     state.book = await bookService.get(state.book.id);
 
+
+    await bookService.startBook(state.book.id);
+    state.book = await bookService.get(state.book.id);
     renderBook(state.book);
 }
 
@@ -43,10 +50,27 @@ async function removeFromReadingList() {
 }
 
 async function addToFinishList() {
+
     await bookService.finishBook(state.book.id);
     state.book = await bookService.get(state.book.id);
 
     renderBook(state.book);
+}
+
+
+async function goBack() {
+    history.length > 1 ? window.history.back() : window.close();
+}
+
+
+
+async function rateDetailBook(e) {
+
+    await bookService.rateBook(state.book.id, e.target.value);
+    state.book = await bookService.get(state.book.id);
+
+    renderBook(state.book);
+
 }
 
 /**
@@ -54,8 +78,7 @@ async function addToFinishList() {
  **/
 function renderBook(book) {
     const bookRefs = render(
-        'book.html',
-        {
+        'book.html', {
             book: book,
             detail: true,
         },
@@ -64,19 +87,39 @@ function renderBook(book) {
 
     if (book.status === 'AVAILABLE') {
         bookRefs.addToList.addEventListener('click', addToReadingList);
+
     }
 
     if (book.status === 'READING') {
-        bookRefs.removeFromList.addEventListener(
-            'click',
-            removeFromReadingList
-        );
+        bookRefs.removeFromList.addEventListener('click', removeFromReadingList);
         bookRefs.addToFinish.addEventListener('click', addToFinishList);
+
     }
 
     if (book.status === 'FINISHED') {
-        bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
+
+        if (book.rating > 0) {
+            bookRefs.removeFromFinish.addEventListener('click', addToReadingList);
+            ove.classList.remove('active');
+            popup.classList.remove('active');
+
+        } else {
+            ove.classList.add('active');
+            setTimeout(function() {
+
+                popup.classList.add('active');
+            }, 300);
+            document.getElementsByName("rate").forEach(element => {
+                element.addEventListener('click', rateDetailBook);
+                element.classList.remove("btn-selected");
+            });
+        }
+
+
     }
+
+
+    bookRefs.goBack.addEventListener('click', goBack);
 }
 
 /**

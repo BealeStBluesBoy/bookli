@@ -5,11 +5,9 @@
     --text-l: 1.25rem;
     --text-xl: 1.563rem;
     --text-xxl: 1.953rem;
-
     --gray-2: #6b7280;
     --gray-3: #4a5568;
     --gray-4: #1a202c;
-
     --space-1: 0.5rem;
     --space-2: 0.75rem;
     --space-3: 1rem;
@@ -18,30 +16,27 @@
     --space-6: 2rem;
     --space-7: 2.5rem;
     --space-8: 3rem;
-
     --white: #fff;
     --bg: #f4f5f7;
     --border: #cbd5e0;
     --primary: #35b2d3;
     --primary-dark: #1c687d;
     --primary-light: #abdeed;
-
     --success: #28a745;
     --warning: #ffc107;
     --danger: #dc3545;
-
     --radius: 0.5rem;
-
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
-
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --sm: 640px;
 }
 
+
 /* font */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
 /* reset */
+
 *,
 *:before,
 *:after {
@@ -123,6 +118,10 @@ p {
     background-color: var(--danger);
 }
 
+.btn.btn-selected {
+    background-color: var(--primary-dark);
+}
+
 /* layout */
 
 .app-layout {
@@ -155,9 +154,12 @@ p {
     }
 }
 
+
 /* End layout */
 
+
 /* Navbar */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -192,9 +194,13 @@ p {
         letter-spacing: -1.5px;
     }
 }
+
+
 /* End Navbar */
 
+
 /* Search */
+
 .search {
     position: relative;
     text-align: right;
@@ -208,7 +214,6 @@ p {
     padding-left: var(--space-6);
     max-width: 500px;
     color: var(--gray-3);
-
     height: var(--space-7);
     background: var(--white);
     box-shadow: var(--shadow);
@@ -222,35 +227,42 @@ p {
     transform: translateY(-50%);
     margin-left: var(--space-1);
 }
+
+
 /* End Search */
 
+
 /* Filters */
+
 .filters {
-    overflow: hidden; /* hace que el borde del hover sea redondo en los filtros */
+    overflow: hidden;
+    /* hace que el borde del hover sea redondo en los filtros */
     font-size: var(--text-xl);
 }
 
+
 /* Rompo un poco con BEM para ahorrar js */
+
 .filter input {
     display: none;
 }
 
-.filter input + div {
+.filter input+div {
     display: block;
     cursor: pointer;
     padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
 }
 
-.filter input + div:hover {
+.filter input+div:hover {
     background-color: var(--primary-light);
 }
 
-.filter input:checked + div {
+.filter input:checked+div {
     position: relative;
     background-color: var(--primary-light);
 }
 
-.filter input:checked + div::before {
+.filter input:checked+div::before {
     content: '';
     display: block;
     position: absolute;
@@ -262,4 +274,6 @@ p {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+
+
 /* End Filters */

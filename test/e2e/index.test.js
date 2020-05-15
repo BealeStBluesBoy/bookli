@@ -23,6 +23,24 @@ after(() => {
 });
 
 describe('Home Test', () => {
+    test('Deberia mostrar opacidad cuando se pone el mause sobre una tarjeta', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.booklist')
+            .moveToElement(
+                'body > main > div > div.books-container > div > a:nth-child(1)',
+                10,
+                10,
+            )
+            .assert.cssProperty(
+                'body > main > div > div.books-container > div > a:nth-child(1)',
+                'opacity',
+                '0.5'
+            )
+
+    });
+
     test('Deberia tener de titulo Bookli', browser => {
         browser
             .url(BASE_URL)

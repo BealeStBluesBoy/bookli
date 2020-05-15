@@ -5,14 +5,14 @@ const BookModels = require('../../server/src/models/book.js');
 let BASE_URL;
 let server;
 
-before(async (browser, done) => {
+before(async(browser, done) => {
     server = await startServer();
 
     BASE_URL = `http://localhost:${server.address().port}`;
     done();
 });
 
-beforeEach(async (browser, done) => {
+beforeEach(async(browser, done) => {
     await BookModels.Book.sync({ force: true });
     await fixture.initBooks();
     done();
@@ -51,7 +51,7 @@ describe('Home Test', () => {
                 'body > header > div.search > input',
                 'placeholder',
                 'Buscar...'
-                
+
             );
     });
 
@@ -94,6 +94,17 @@ describe('Home Test', () => {
 });
 
 describe('Detail view', () => {
+    test('Deberia mostrar el pais de un libro', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__body')
+
+        browser.expect
+            .element('body > main > div > div.book__body > div > p:nth-child(2) > span')
+            .text.to.equal('Argentina')
+    });
+
     test('Deberia mostrar boton para agregar a lista de lectura', browser => {
         browser
             .url(BASE_URL + '/detail/1')
@@ -191,45 +202,45 @@ describe('Detail view', () => {
         browser
             .click('.book__actions [data-ref=addToFinish]')
             .pause(400)
-            
+
 
         browser.expect
             .element('#popup > h3')
             .text.to.equal('Califica el libro por favor');
 
         browser
-        .click('#popup > form > div > label:nth-child(2)')
-        .pause(400)
-        .waitForElementVisible(
-            '.book__actions [data-ref=removeFromFinish]'
-        );
+            .click('#popup > form > div > label:nth-child(2)')
+            .pause(400)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]'
+            );
         browser.expect
-        .element('.book__actions [data-ref=removeFromFinish]')
-        .text.to.equal('Volver a leer');
+            .element('.book__actions [data-ref=removeFromFinish]')
+            .text.to.equal('Volver a leer');
 
-     });
+    });
 
     test('Deberian aparecer botones "Dejar de leer" y "Lo termine"', browser => {
         browser
             .url(BASE_URL + '/detail/1')
             .waitForElementVisible('body')
             .waitForElementVisible('.book__actions [data-ref=addToList]');
-        
+
         browser
             .click('.book__actions [data-ref=addToList]')
             .pause(400)
             .waitForElementVisible('.book__actions [data-ref=addToFinish]');
-        
+
         browser
             .click('.book__actions [data-ref=addToFinish]')
             .pause(400)
             .waitForElementVisible('#popup > form > div > label:nth-child(2)');
-        
+
         browser
             .click('#popup > form > div > label:nth-child(2)')
             .pause(400)
             .waitForElementVisible('.book__actions [data-ref=removeFromFinish]');
-        
+
         browser
             .click('.book__actions [data-ref=removeFromFinish]')
             .pause(400)
@@ -238,7 +249,7 @@ describe('Detail view', () => {
         browser.expect
             .element('.book__actions [data-ref=addToFinish]')
             .text.to.equal('Lo termine!');
-        
+
         browser.expect
             .element('.book__actions [data-ref=removeFromList]')
             .text.to.equal('Dejar de leer');

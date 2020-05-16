@@ -60,6 +60,18 @@ describe('Home Test', () => {
             );
     });
 
+    test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.brand')
+            .assert.attributeEquals(
+                '.brand',
+                'href',
+                'http://localhost:3000/'
+            );
+    });
+
     test('Deberia mostrar el placeholder en el boton de busqueda', browser => {
         browser
             .url(BASE_URL)

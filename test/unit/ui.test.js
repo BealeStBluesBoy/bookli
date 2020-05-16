@@ -6,7 +6,7 @@ import bookServices from '../../client/js/book-service.js';
 import * as utils from '../../client/js/utils.js';
 
 function makeFakeJSONFetch({ success, result }) {
-    return function () {
+    return function() {
         return new Promise((resolve, reject) => {
             const fakeJSON = {
                 json: () =>
@@ -35,7 +35,7 @@ function makeMookNunjucks() {
 
 // app
 describe('fetch books', () => {
-    test('All books', async () => {
+    test('All books', async() => {
         // fetch mock
         window.fetch = makeFakeJSONFetch({
             success: true,
@@ -48,7 +48,7 @@ describe('fetch books', () => {
         expect(books[0].id).toBe(1);
     });
 
-    test('Find books', async () => {
+    test('Find books', async() => {
         // fetch mock
         window.fetch = makeFakeJSONFetch({
             success: true,
@@ -79,6 +79,19 @@ describe('Utils', () => {
         expect(book).toStrictEqual(book);
     });
 
+    test('muestra_country_en_la_UI', () => {
+        const book = { id: 1, title: 'El aleph' };
+        const result = utils.assign(book, { country: 'Argentina' });
+
+        expect(result).toStrictEqual({
+            id: 1,
+            title: 'El aleph',
+            //comprueba que en la UI book.country muestra el pais
+            country: 'Argentina',
+        });
+        expect(book).toStrictEqual(book);
+    });
+
     test('getRefs', () => {
         const $div = document.createElement('div');
         $div.setAttribute('data-ref', 'myEl');
@@ -99,8 +112,7 @@ describe('Utils', () => {
     test('render with refs', () => {
         window.nunjucks = makeMookNunjucks();
         const refs = utils.render(
-            '<div data-ref="myDiv"></div>',
-            {},
+            '<div data-ref="myDiv"></div>', {},
             document.body
         );
         const div = document.body.firstElementChild;

@@ -1,20 +1,20 @@
 const BookModels = require('../../server/src/models/book.js');
 
-beforeEach(async () => {
+beforeEach(async() => {
     await BookModels.Book.sync({ force: true });
 });
 
-test('Crear libro', async () => {
+test('Crear libro', async() => {
     const bookData = {
         title: 'El Aleph',
-        synopsis:
-            'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
         year: 1949,
         publisher: 'Editorial Losada',
         isbn: '9788499089515',
         genres: ['Cuentos', 'Fantástico'],
         authors: ['Jorge Luis Borges'],
         cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -25,10 +25,33 @@ test('Crear libro', async () => {
     expect(book.year).toBe(bookData.year);
 });
 
-test('Crear libro sin título', async () => {
+test('Crear libro garantizando que el pais sea necesario en los datos de entrada para crear el libro', async() => {
     const bookData = {
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        title: 'El Aleph',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        year: 1949,
+        publisher: 'Editorial Losada',
+        isbn: '9788499089515',
+        genres: ['Cuentos', 'Fantástico'],
+        authors: ['Jorge Luis Borges'],
+        cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
+    };
+
+    // Creamos el libro
+    const book = await BookModels.create(bookData);
+
+    expect(book.title).toBe(bookData.title);
+    expect(book.description).toBe(bookData.description);
+    expect(book.year).toBe(bookData.year);
+    // Comprobamos que se para crear el libro se envio un country
+    expect(book.country).toBe(bookData.country);
+});
+
+
+test('Crear libro sin título', async() => {
+    const bookData = {
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
@@ -44,17 +67,17 @@ test('Crear libro sin título', async () => {
     }
 });
 
-test('Obtener un libro', async () => {
+test('Obtener un libro', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -67,17 +90,17 @@ test('Obtener un libro', async () => {
     expect(book.title).toBe(receivedBook.title);
 });
 
-test('Obtener un libro inexistente', async () => {
+test('Obtener un libro inexistente', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -89,29 +112,29 @@ test('Obtener un libro inexistente', async () => {
     expect(noBook).toBe(null);
 });
 
-test('Obtener todos los libros', async () => {
+test('Obtener todos los libros', async() => {
     const firstBookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     const secondBookData = {
         title: 'El Aleph',
-        synopsis:
-            'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
         year: 1949,
         publisher: 'Editorial Losada',
         isbn: '9788499089515',
         genres: ['Cuentos', 'Fantástico'],
         authors: ['Jorge Luis Borges'],
         cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
     };
 
     // Creamos los libros
@@ -126,29 +149,29 @@ test('Obtener todos los libros', async () => {
     expect(secondBook.id).toBe(receivedBooks[1].id);
 });
 
-test('Buscar libros', async () => {
+test('Buscar libros', async() => {
     const firstBookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     const secondBookData = {
         title: 'El Aleph',
-        synopsis:
-            'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
         year: 1949,
         publisher: 'Editorial Losada',
         isbn: '9788499089515',
         genres: ['Cuentos', 'Fantástico'],
         authors: ['Jorge Luis Borges'],
         cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
     };
 
     // Creamos los libros
@@ -162,29 +185,29 @@ test('Buscar libros', async () => {
     expect(firstBook.id).toBe(filterBook[0].id);
 });
 
-test('Buscar libros sin resultado', async () => {
+test('Buscar libros sin resultado', async() => {
     const firstBookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     const secondBookData = {
         title: 'El Aleph',
-        synopsis:
-            'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
         year: 1949,
         publisher: 'Editorial Losada',
         isbn: '9788499089515',
         genres: ['Cuentos', 'Fantástico'],
         authors: ['Jorge Luis Borges'],
         cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
     };
 
     // Creamos los libros
@@ -197,29 +220,29 @@ test('Buscar libros sin resultado', async () => {
     expect(filterEmpty.length).toBe(0);
 });
 
-test('Buscar libros con varios resultados', async () => {
+test('Buscar libros con varios resultados', async() => {
     const firstBookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     const secondBookData = {
         title: 'El Aleph',
-        synopsis:
-            'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
+        synopsis: 'Este volumen reúne dieciocho relatos de Jorge Luis Borges, entre ellos quizá los más elogiados y repetidamente citados. Tanto «El inmortal» como «Los teólogos», «Deutsches Requiem» y «La espera» muestran las posibilidades expresivas de la «estética de la inteligencia» borgiana, inimitable fusión de mentalidad matemática, profundidad metafísica y captación poética del mundo.',
         year: 1949,
         publisher: 'Editorial Losada',
         isbn: '9788499089515',
         genres: ['Cuentos', 'Fantástico'],
         authors: ['Jorge Luis Borges'],
         cover: '/assets/el-aleph.jpg',
+        country: 'Argentina',
     };
 
     // Creamos los libros
@@ -232,17 +255,17 @@ test('Buscar libros con varios resultados', async () => {
     expect(filterBooks.length).toBe(2);
 });
 
-test('Agregar un libro a la lista de lectura', async () => {
+test('Agregar un libro a la lista de lectura', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -260,17 +283,17 @@ test('Agregar un libro a la lista de lectura', async () => {
     expect(receivedBook.status).toBe(BookModels.status.READING);
 });
 
-test('Agregar un libro inexistente a la lista de lectura', async () => {
+test('Agregar un libro inexistente a la lista de lectura', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -285,17 +308,17 @@ test('Agregar un libro inexistente a la lista de lectura', async () => {
     expect(receivedBook).toBe(null);
 });
 
-test('Obtener libros de la lista de lectura', async () => {
+test('Obtener libros de la lista de lectura', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -314,17 +337,17 @@ test('Obtener libros de la lista de lectura', async () => {
     expect(filterBook[0].status).toBe(BookModels.status.READING);
 });
 
-test('Obtener lista de lectura vacía', async () => {
+test('Obtener lista de lectura vacía', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro
@@ -337,17 +360,17 @@ test('Obtener lista de lectura vacía', async () => {
     expect(filterBook.length).toBe(0);
 });
 
-test('Poner disponible un libro nuevamente', async () => {
+test('Poner disponible un libro nuevamente', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
         status: BookModels.status.READING,
     };
 
@@ -363,17 +386,17 @@ test('Poner disponible un libro nuevamente', async () => {
     expect(receivedBook.status).toBe(BookModels.status.AVAILABLE);
 });
 
-test('Poner disponible un libro en estado terminado', async () => {
+test('Poner disponible un libro en estado terminado', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
         status: BookModels.status.FINISHED,
     };
 
@@ -387,17 +410,17 @@ test('Poner disponible un libro en estado terminado', async () => {
     expect(receivedBook.status).toBe(BookModels.status.FINISHED);
 });
 
-test('Finalizar un libro', async () => {
+test('Finalizar un libro', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
         status: BookModels.status.READING,
     };
 
@@ -413,17 +436,17 @@ test('Finalizar un libro', async () => {
     expect(receivedBook.status).toBe(BookModels.status.FINISHED);
 });
 
-test('Finalizar un libro en estado disponible', async () => {
+test('Finalizar un libro en estado disponible', async() => {
     const bookData = {
         title: 'The Pragmatic Programmer',
-        synopsis:
-            'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
+        synopsis: 'Straight from the programming trenches, The Pragmatic Programmer cuts through the increasing specialization and technicalities of modern software development to examine the core process--taking a requirement and producing working, maintainable code that delights its users. It covers topics ranging from personal responsibility and career development to architectural techniques for keeping your code flexible and easy to adapt and reuse.',
         year: 1999,
         publisher: 'Addison-Wesley Professional',
         isbn: '9780201616224',
         genres: ['Educación', 'Tecnología', 'Programación'],
         authors: ['David Thomas', 'Andrew Hunt'],
         cover: '/assets/pragmatic-programmer.jpg',
+        country: 'Argentina',
     };
 
     // Creamos el libro

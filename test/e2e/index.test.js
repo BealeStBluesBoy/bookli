@@ -240,7 +240,7 @@ describe('Detail view', () => {
 
         browser
             .click('#popup > form > div > label:nth-child(2)')
-            .pause(400)
+            .pause(1000)
             .waitForElementVisible(
                 '.book__actions [data-ref=removeFromFinish]'
             );
@@ -268,7 +268,7 @@ describe('Detail view', () => {
 
         browser
             .click('#popup > form > div > label:nth-child(2)')
-            .pause(400)
+            .pause(1000)
             .waitForElementVisible('.book__actions [data-ref=removeFromFinish]');
 
         browser

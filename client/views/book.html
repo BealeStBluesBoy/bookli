@@ -25,7 +25,11 @@
                 Es un libro perteneciente a los géneros
                 <span class="highlight">{{ book.genres }}</span>.
             </p>
-            
+            {% if book.status == 'FINISHED' %}{% if book.rating > 0 %}
+            <p>
+                Puntuaste al libro con
+                <span class="highlight">{{ book.rating }}</span><label class="estrella"> ★</label>.
+            </p>{% endif %}{% endif %}
         </div>
         {% endif %}
     </div>
@@ -35,19 +39,41 @@
         {% if book.status == 'AVAILABLE' %}
         <button class="btn btn-primary" data-ref="addToList">
             Empezar a leer
-        </button>
-        {% endif %} {% if book.status == 'READING' %}
+        </button> {% endif %} {% if book.status == 'READING' %}
         <button class="btn btn-warning" data-ref="removeFromList">
             Dejar de leer
         </button>
         <button class="btn btn-success" data-ref="addToFinish">
             Lo termine!
-        </button>
-        {% endif %} {% if book.status == 'FINISHED' %}
+        </button> {% endif %} {% if book.status == 'FINISHED' %}
         <button class="btn btn-danger" data-ref="removeFromFinish">
+            
             Volver a leer
+        </button> {% endif %}
+        <button class="btn btn-primary" data-ref="goBack">
+            Atras
         </button>
-        {% endif %}
     </div>
     {% endif %}
+    <div class="overlay " id="ove">
+        <div class="popup" id="popup">
+
+            <h3>Califica el libro por favor</h3>
+            <form>
+                <div class="contenedor-btn">
+                    <input id="radio1" type="radio" name="rate" value="5">
+                    <label for="radio1">★</label>
+                    <input id="radio2" type="radio" name="rate" value="4">
+                    <label for="radio2">★</label>
+                    <input id="radio3" type="radio" name="rate" value="3">
+                    <label for="radio3">★</label>
+                    <input id="radio4" type="radio" name="rate" value="2">
+                    <label for="radio4">★</label>
+                    <input id="radio5" type="radio" name="rate" value="1">
+                    <label for="radio5">★</label>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

@@ -118,6 +118,9 @@ p {
     background-color: var(--danger);
 }
 
+.btn.btn-selected {
+    background-color: var(--primary-dark);
+}
 
 /* layout */
 

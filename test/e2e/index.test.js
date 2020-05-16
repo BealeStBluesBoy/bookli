@@ -284,4 +284,18 @@ describe('Detail view', () => {
             .element('.book__actions [data-ref=removeFromList]')
             .text.to.equal('Dejar de leer');
     });
+
+    test('Deberia volver a la pagina principal', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('.book__actions [data-ref=goBack]')
+
+        browser
+            .click('.book__actions [data-ref=goBack]')
+            .pause(400)
+            .waitForElementVisible('body');
+
+        browser.expect
+            .url().to.equal(BASE_URL + '/');
+    });
 });

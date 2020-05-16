@@ -105,4 +105,32 @@ router.put('/:id/finish', function (req, res) {
         .catch(() => res.status(500).send('Error al obtener libro'));
 });
 
+/**
+ * Endpoint para cambiar el rating un libro.
+ * Recibe el id en req.params.id
+ * Recibe el rating en req.params.rating
+ *
+ */
+router.put('/:id/rate/:rating', function (req, res) {
+    BookModel.rate(req.params.id, req.params.rating)
+        .then((book) => {
+            if (book == null) {
+                res.status(404).send(
+                    'El libro ' + req.params.id + ' no fue encontrado'
+                );
+            } else {
+                if (book.status !== BookModel.status.FINISHED) {
+                    res.status(400).send(
+                        'El libro ' +
+                            req.params.id +
+                            ' no está en la lista de lectura'
+                    );
+                } else {
+                    res.status(200).send(book);
+                }
+            }
+        })
+        .catch(() => res.status(500).send('Error al obtener libro'));
+});
+
 module.exports = router;

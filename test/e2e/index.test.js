@@ -68,8 +68,22 @@ describe('Home Test', () => {
             .assert.attributeEquals(
                 '.brand',
                 'href',
-                'http://localhost:3000/'
+                (BASE_URL + '/')
             );
+    });
+
+    test.only('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli (otra forma)', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body');
+
+        browser
+            .click('.brand [data-ref=inicio]')
+            .pause(400)
+            .waitForElementVisible('body');
+
+        browser.expect
+            .url().to.equal(BASE_URL + '/');
     });
 
     test('Deberia mostrar el placeholder en el boton de busqueda', browser => {

@@ -240,7 +240,7 @@ describe('Detail view', () => {
 
         browser
             .click('#popup > form > div > label:nth-child(2)')
-            .pause(400)
+            .pause(1000)
             .waitForElementVisible(
                 '.book__actions [data-ref=removeFromFinish]'
             );
@@ -268,7 +268,7 @@ describe('Detail view', () => {
 
         browser
             .click('#popup > form > div > label:nth-child(2)')
-            .pause(400)
+            .pause(1000)
             .waitForElementVisible('.book__actions [data-ref=removeFromFinish]');
 
         browser
@@ -283,5 +283,19 @@ describe('Detail view', () => {
         browser.expect
             .element('.book__actions [data-ref=removeFromList]')
             .text.to.equal('Dejar de leer');
+    });
+
+    test('Deberia volver a la pagina principal', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('.book__actions [data-ref=goBack]')
+
+        browser
+            .click('.book__actions [data-ref=goBack]')
+            .pause(400)
+            .waitForElementVisible('body');
+
+        browser.expect
+            .url().to.equal(BASE_URL + '/');
     });
 });

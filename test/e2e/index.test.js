@@ -72,7 +72,7 @@ describe('Home Test', () => {
             );
     });
 
-    test.only('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli (otra forma)', browser => {
+    test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli (otra forma)', browser => {
         browser
             .url(BASE_URL + '/detail/1')
             .waitForElementVisible('body');

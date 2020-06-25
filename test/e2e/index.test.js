@@ -5,14 +5,14 @@ const BookModels = require('../../server/src/models/book.js');
 let BASE_URL;
 let server;
 
-before(async (browser, done) => {
+before(async(browser, done) => {
     server = await startServer();
 
     BASE_URL = `http://localhost:${server.address().port}`;
     done();
 });
 
-beforeEach(async (browser, done) => {
+beforeEach(async(browser, done) => {
     await BookModels.Book.sync({ force: true });
     await fixture.initBooks();
     done();
@@ -23,6 +23,24 @@ after(() => {
 });
 
 describe('Home Test', () => {
+    test('Deberia mostrar opacidad cuando se pone el mause sobre una tarjeta', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.booklist')
+            .moveToElement(
+                'body > main > div > div.books-container > div > a:nth-child(1)',
+                10,
+                10,
+            )
+            .assert.cssProperty(
+                'body > main > div > div.books-container > div > a:nth-child(1)',
+                'opacity',
+                '0.5'
+            )
+
+    });
+
     test('Deberia tener de titulo Bookli', browser => {
         browser
             .url(BASE_URL)
@@ -39,6 +57,45 @@ describe('Home Test', () => {
                 '.brand__logo',
                 'src',
                 '/assets/logo.svg'
+            );
+    });
+
+    test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.brand')
+            .assert.attributeEquals(
+                '.brand',
+                'href',
+                (BASE_URL + '/')
+            );
+    });
+
+    test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli (otra forma)', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body');
+
+        browser
+            .click('.brand [data-ref=inicio]')
+            .pause(400)
+            .waitForElementVisible('body');
+
+        browser.expect
+            .url().to.equal(BASE_URL + '/');
+    });
+
+    test('Deberia mostrar el placeholder en el boton de busqueda', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('body > header > div.search > input')
+            .assert.attributeContains(
+                'body > header > div.search > input',
+                'placeholder',
+                'Buscar...'
+
             );
     });
 
@@ -81,6 +138,17 @@ describe('Home Test', () => {
 });
 
 describe('Detail view', () => {
+    test('Deberia mostrar el pais de un libro', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__body')
+
+        browser.expect
+            .element('body > main > div > div.book__body > div > p:nth-child(2) > span')
+            .text.to.equal('Argentina')
+    });
+
     test('Deberia mostrar boton para agregar a lista de lectura', browser => {
         browser
             .url(BASE_URL + '/detail/1')
@@ -158,5 +226,90 @@ describe('Detail view', () => {
         browser.expect
             .element('.book__actions [data-ref=removeFromFinish]')
             .text.to.equal('Volver a leer');
+    });
+
+    test('Deberia poder calificar un libro terminado', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]');
+
+        browser
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]');
+
+        browser.expect
+            .element('.book__actions [data-ref=addToFinish]')
+            .text.to.equal('Lo termine!');
+
+        browser
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+
+
+        browser.expect
+            .element('#popup > h3')
+            .text.to.equal('Califica el libro por favor');
+
+        browser
+            .click('#popup > form > div > label:nth-child(2)')
+            .pause(1000)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]'
+            );
+        browser.expect
+            .element('.book__actions [data-ref=removeFromFinish]')
+            .text.to.equal('Volver a leer');
+
+    });
+
+    test('Deberian aparecer botones "Dejar de leer" y "Lo termine"', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]');
+
+        browser
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=addToFinish]');
+
+        browser
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            .waitForElementVisible('#popup > form > div > label:nth-child(2)');
+
+        browser
+            .click('#popup > form > div > label:nth-child(2)')
+            .pause(1000)
+            .waitForElementVisible('.book__actions [data-ref=removeFromFinish]');
+
+        browser
+            .click('.book__actions [data-ref=removeFromFinish]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=addToFinish]');
+
+        browser.expect
+            .element('.book__actions [data-ref=addToFinish]')
+            .text.to.equal('Lo termine!');
+
+        browser.expect
+            .element('.book__actions [data-ref=removeFromList]')
+            .text.to.equal('Dejar de leer');
+    });
+
+    test('Deberia volver a la pagina principal', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('.book__actions [data-ref=goBack]')
+
+        browser
+            .click('.book__actions [data-ref=goBack]')
+            .pause(400)
+            .waitForElementVisible('body');
+
+        browser.expect
+            .url().to.equal(BASE_URL + '/');
     });
 });

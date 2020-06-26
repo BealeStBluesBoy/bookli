@@ -1,3 +1,8 @@
+# Release 1.2.1
+
+### Bugs resueltos
+- Arreglar el color de los selectores de estado de libro
+
 # Release 1.2.0
 
 ### Features agregadas

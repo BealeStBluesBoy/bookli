@@ -312,4 +312,13 @@ describe('Detail view', () => {
         browser.expect
             .url().to.equal(BASE_URL + '/');
     });
+
+    test('El texto de los estados de libros deberia tener el color correcto', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('div.filters-container > form > label:nth-child(1)')
+
+        browser.assert
+            .cssProperty('div.filters-container > form > label:nth-child(1)', 'color', 'rgba(26, 32, 44, 1)');
+    });
 });

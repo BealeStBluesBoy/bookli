@@ -139,12 +139,12 @@
     font-size: 25px;
 }
 
-label {
+.ratingstar {
     color: grey;
     transition: 1s ease all;
 }
 
-label:hover {
+.ratingstar:hover {
     color: orange;
     cursor: pointer;
 }
@@ -168,8 +168,8 @@ input[type="radio"]:checked~label {
     text-align: left;
 }
 
-label:hover,
-label:hover~label {
+.ratingstar:hover,
+.ratingstar:hover~.ratingstar {
     color: orange;
 }
 

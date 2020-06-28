@@ -140,7 +140,7 @@ p {
 .card {
     background: var(--white);
     box-shadow: var(--shadow);
-    border: 1px solid #C00;
+    border: 1px solid rgb(204, 0, 0);
     border-radius: var(--radius);
 }
 

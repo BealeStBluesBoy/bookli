@@ -60,6 +60,19 @@ describe('Home Test', () => {
             );
     });
 
+    test('Deberia redireccionar a la pagina de libros de Amazon cuando presiono el boton Comprar', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body');
+
+        browser
+            .click('.comprar-btn')
+            .pause(600)
+            
+        browser.expect
+            .url().to.equal('https://www.amazon.es/gp/browse.html?node=599364031');
+    });
+
     test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli', browser => {
         browser
             .url(BASE_URL)

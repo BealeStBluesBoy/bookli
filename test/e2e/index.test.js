@@ -41,6 +41,19 @@ describe('Home Test', () => {
 
     });
 
+    test('Deberia tener borde rojos las cards', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.booklist')
+            .assert.cssProperty(
+                'body > main > div > div.books-container > div > a:nth-child(1) > div',
+                'border',
+                '1px solid rgb(204, 0, 0)'
+            )
+
+    });
+
     test('Deberia tener de titulo Bookli', browser => {
         browser
             .url(BASE_URL)

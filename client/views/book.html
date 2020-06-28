@@ -30,6 +30,10 @@
                 ISBN:
                 <span class="highlight">{{ book.isbn }}</span>.
             </p>
+            <p>
+                Paginas:
+                <span class="highlight">{{ book.pages }}</span>.
+            </p>
             {% if book.status == 'FINISHED' %}{% if book.rating > 0 %}
             <p>
                 Puntuaste al libro con

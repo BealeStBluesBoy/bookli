@@ -14,6 +14,7 @@ const initBooks = () => {
                 cover: '/assets/covers/el-aleph.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Argentina',
+                pages: 350,
             })
         )
         .then(() =>
@@ -28,6 +29,7 @@ const initBooks = () => {
                 cover: '/assets/covers/operacion-masacre.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Argentina',
+                pages: 354,
             })
         )
         .then(() =>
@@ -42,6 +44,7 @@ const initBooks = () => {
                 cover: '/assets/covers/pragmatic-programmer.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Estados Unidos',
+                pages: 360,
             })
         )
         .then(() =>
@@ -56,6 +59,7 @@ const initBooks = () => {
                 cover: '/assets/covers/code-complete.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Estados Unidos',
+                pages: 340,
             })
         )
         .then(() =>
@@ -70,6 +74,7 @@ const initBooks = () => {
                 cover: '/assets/covers/sherlock.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Reino Unido',
+                pages: 330,
             })
         )
         .then(() =>
@@ -84,6 +89,7 @@ const initBooks = () => {
                 cover: '/assets/covers/1984.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Reino Unido',
+                pages: 350,
             })
         )
         .then(() =>
@@ -97,7 +103,8 @@ const initBooks = () => {
                 authors: ['Franz Kafka'],
                 cover: '/assets/covers/trial.jpg',
                 status: BookModel.status.AVAILABLE,
-                country: 'Alemania/Austria'
+                country: 'Alemania/Austria',
+                pages: 350,
             })
         )
         .then(() =>
@@ -112,6 +119,7 @@ const initBooks = () => {
                 cover: '/assets/covers/fahrenheit.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Estados Unidos',
+                pages: 350,
             })
         )
         .then(() =>
@@ -126,6 +134,7 @@ const initBooks = () => {
                 cover: '/assets/covers/earnest.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Inglaterra',
+                pages: 353,
             })
         )
         .then(() =>
@@ -140,6 +149,7 @@ const initBooks = () => {
                 cover: '/assets/covers/animal-farm.jpg',
                 status: BookModel.status.AVAILABLE,
                 country: 'Inglaterra',
+                pages: 350,
             })
         );
 };

@@ -70,6 +70,8 @@ function setUpListeners() {
 function init() {
     getAllBooks();
     setUpListeners();
+    searchBooks('AVAILABLE');
+    changeFilter('AVAILABLE');
 }
 
 init();

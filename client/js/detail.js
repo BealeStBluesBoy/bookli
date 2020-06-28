@@ -56,10 +56,10 @@ async function addToFinishList() {
     renderBook(state.book);
 }
 
-
+/*
 async function goBack() {
     history.length > 1 ? window.history.back() : window.close();
-}
+}*/
 
 async function rateDetailBook(e) {
     await bookService.rateBook(state.book.id, e.target.value);
@@ -106,7 +106,7 @@ function renderBook(book) {
         }
     }
 
-    bookRefs.goBack.addEventListener('click', goBack);
+    /* bookRefs.goBack.addEventListener('click', goBack);*/
 }
 
 /**

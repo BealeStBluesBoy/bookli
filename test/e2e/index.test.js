@@ -41,6 +41,19 @@ describe('Home Test', () => {
 
     });
 
+    test('Deberia tener borde rojos las cards', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .waitForElementVisible('.booklist')
+            .assert.cssProperty(
+                'body > main > div > div.books-container > div > a:nth-child(1) > div',
+                'border',
+                '1px solid rgb(204, 0, 0)'
+            )
+
+    });
+
     test('Deberia tener de titulo Bookli', browser => {
         browser
             .url(BASE_URL)
@@ -58,6 +71,19 @@ describe('Home Test', () => {
                 'src',
                 '/assets/logo.svg'
             );
+    });
+
+    test('Deberia redireccionar a la pagina de libros de Amazon cuando presiono el boton Comprar', browser => {
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body');
+
+        browser
+            .click('.comprar-btn')
+            .pause(600)
+            
+        browser.expect
+            .url().to.equal('https://www.amazon.es/gp/browse.html?node=599364031');
     });
 
     test('Deberia redireccionar a la pagina principal cuando presiono el logo de Bookli', browser => {
@@ -135,6 +161,39 @@ describe('Home Test', () => {
                 'Hmmm... Parece que no tenemos el libro que buscas.\nProba con otra busqueda.'
             );
     });
+
+    test('Deberia mostrar el numero de libros segun el filtro aplicado en la etiqueda de Cantidad de libros', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]')
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]')
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]');
+        browser
+            .url(BASE_URL + '/detail/2')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]')
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]')
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]');
+        browser
+            .url(BASE_URL)
+            .click('body > main > div > div.filters-container > form > label:nth-child(3) > div')
+            .waitForElementVisible('#cant > strong');
+           
+        browser.expect
+            .element('#cant > strong')
+            .text.to.equal('2');
+    });
 });
 
 describe('Detail view', () => {
@@ -158,6 +217,18 @@ describe('Detail view', () => {
         browser.expect
             .element('body > main > div > div.book__body > div > p:nth-child(4)')
             .text.to.equal('Paginas: 350.')
+    });
+
+
+    test('Deberia mostrar el isbn de un libro', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__body')
+
+        browser.expect
+            .element('body > main > div > div.book__body > div > p:nth-child(5)')
+            .text.to.equal('ISBN: 9788499089515.')
     });
 
     test('Deberia mostrar boton para agregar a lista de lectura', browser => {

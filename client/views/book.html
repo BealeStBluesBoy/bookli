@@ -12,6 +12,7 @@
 
         {% if detail %}
         <div class="book__extra-info">
+            
             <p>
                 Se publicó en el año
                 <span class="highlight">{{ book.year }}</span> por la editorial
@@ -28,6 +29,10 @@
             <p>
                 Paginas:
                 <span class="highlight">{{ book.pages }}</span>.
+            </p>
+            <p>
+                ISBN:
+                <span class="highlight">{{ book.isbn }}</span>.
             </p>
             {% if book.status == 'FINISHED' %}{% if book.rating > 0 %}
             <p>

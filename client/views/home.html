@@ -1,4 +1,9 @@
 {% extends "_base.html" %} {% block search %}
+<div class="comprar-btn" >
+    <button class="btn btn-primary" onclick="window.location='https://www.amazon.es/gp/browse.html?node=599364031';" >
+        Comprar
+    </button>
+</div>
 <div class="search">
     <img src="/assets/search.svg" aria-hidden="true" class="search__icon" />
     <input
@@ -32,7 +37,12 @@
                 <input type="radio" name="filter" value="FINISHED" />
                 <div>Terminados</div>
             </label>
+
+            <label class="cantLibros" >
+                <div id="cant"></div>
+            </label>
         </form>
+      
     </div>
     <div class="books-container" data-ref="books"></div>
 </div>

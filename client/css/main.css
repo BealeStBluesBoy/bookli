@@ -276,5 +276,18 @@ p {
     border-bottom-left-radius: 5px;
 }
 
-
 /* End Filters */
+
+/* Cantidad de libros */
+
+.cantLibros {
+    text-align: center;
+    font-size: var(--text-l) 
+    
+}
+
+.cantLibros #cant {
+    background-color: var(--primary-light);
+}
+
+/* End Cantidad de libros */

@@ -122,6 +122,7 @@ p {
     background-color: var(--primary-dark);
 }
 
+
 /* layout */
 
 .app-layout {
@@ -139,7 +140,7 @@ p {
 .card {
     background: var(--white);
     box-shadow: var(--shadow);
-    border: 1px solid var(--border);
+    border: 1px solid rgb(204, 0, 0);
     border-radius: var(--radius);
 }
 

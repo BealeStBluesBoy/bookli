@@ -149,6 +149,17 @@ describe('Detail view', () => {
             .text.to.equal('Argentina')
     });
 
+    test('Deberia mostrar el isbn de un libro', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__body')
+
+        browser.expect
+            .element('body > main > div > div.book__body > div > p:nth-child(4)')
+            .text.to.equal('ISBN: 9788499089515.')
+    });
+
     test('Deberia mostrar boton para agregar a lista de lectura', browser => {
         browser
             .url(BASE_URL + '/detail/1')

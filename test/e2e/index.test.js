@@ -135,6 +135,25 @@ describe('Home Test', () => {
                 'Hmmm... Parece que no tenemos el libro que buscas.\nProba con otra busqueda.'
             );
     });
+
+    test.only('Deberia mostrar solo los libros en estado AVAILABLE al iniciar home', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]')
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]')
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]');
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .assert.attributeContains('#cantidad', 'value', '9');
+
+    });
 });
 
 describe('Detail view', () => {

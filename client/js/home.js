@@ -6,7 +6,6 @@ const refs = getRefs();
 
 let state = {
     searchTerm: '',
-    status: '',
     status: 'AVAILABLE',
     books: [],
 };

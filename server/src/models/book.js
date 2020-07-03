@@ -68,6 +68,10 @@ const Book = db.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
+
+        pages: {
+            type: Sequelize.INTEGER,
+        },
    
 
         rating: {

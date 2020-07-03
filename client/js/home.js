@@ -8,6 +8,7 @@ let state = {
     searchTerm: '',
     status: 'AVAILABLE',
     books: [],
+    booksAmount:'',
 };
 
 /**
@@ -16,12 +17,11 @@ let state = {
  **/
 async function searchBooks(searchTerm) {
     state.searchTerm = searchTerm;
-
     const books = await bookService.search(state.searchTerm, state.status);
     // obtiene la cantidad de libros que se muestran en la UI
     let cantidad = books.length;
     contarDisponibles(cantidad);
-
+    cantLibros(books);
     state.books = books;
     renderBooks(state);
 }
@@ -43,6 +43,7 @@ async function getAllBooks() {
     const books = await bookService.getAll();
     changeFilter(state.status);
     state.books = books;
+    cantLibros(books);
     renderBooks(state);
 }
 
@@ -65,6 +66,10 @@ function setUpListeners() {
     refs.filter.addEventListener('change', (e) => {
         changeFilter(e.target.value);
     });
+}
+function cantLibros(books){
+    state.booksAmount = books.length ;
+    document.getElementById('cant').innerHTML=`Cantidad de libros: <strong>${state.booksAmount}</strong>`;
 }
 
 function contarDisponibles(cantidad) {

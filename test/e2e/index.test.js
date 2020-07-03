@@ -136,7 +136,7 @@ describe('Home Test', () => {
             );
     });
 
-    test.only('Deberia mostrar solo los libros en estado AVAILABLE al iniciar home', browser => {
+    test('Deberia mostrar solo los libros en estado AVAILABLE al iniciar home', browser => {
         browser
             .url(BASE_URL + '/detail/1')
             .waitForElementVisible('body')

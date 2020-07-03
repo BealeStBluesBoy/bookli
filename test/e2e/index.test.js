@@ -162,6 +162,24 @@ describe('Home Test', () => {
             );
     });
 
+    test('Deberia mostrar solo los libros en estado AVAILABLE al iniciar home', browser => {
+        browser
+            .url(BASE_URL + '/detail/1')
+            .waitForElementVisible('body')
+            .waitForElementVisible('.book__actions [data-ref=addToList]')
+            .click('.book__actions [data-ref=addToList]')
+            .pause(400)
+            .waitForElementVisible('.book__actions [data-ref=removeFromList]')
+            .click('.book__actions [data-ref=addToFinish]')
+            .pause(400)
+            .waitForElementVisible(
+                '.book__actions [data-ref=removeFromFinish]');
+        browser
+            .url(BASE_URL)
+            .waitForElementVisible('body')
+            .assert.attributeContains('#cantidad', 'value', '9');
+    });
+
     test('Deberia mostrar el numero de libros segun el filtro aplicado en la etiqueda de Cantidad de libros', browser => {
         browser
             .url(BASE_URL + '/detail/1')

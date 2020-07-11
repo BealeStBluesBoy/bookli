@@ -2,12 +2,10 @@
     {% for book in books %}
     <a href="/detail/{{ book.id }}" class="book-link">
         {% include "book.html" %}
-    </a>
-    {% else %}
+    </a> {% else %}
     <img src="/assets/empty.svg" alt="empty search" />
     <p>
-        Hmmm... Parece que no tenemos el libro que buscas.<br />Proba con otra
-        busqueda.
+        Hmmm... Parece que no tenemos el libro que buscas.<br />Proba con otra busqueda.
     </p>
     {% endfor %}
 </div>

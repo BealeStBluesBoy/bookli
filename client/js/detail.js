@@ -58,7 +58,7 @@ async function addToFinishList() {
 
 
 async function goBack() {
-    history.length > 1 ? window.history.back() : window.close();
+    location.href = "/";
 }
 
 async function rateDetailBook(e) {

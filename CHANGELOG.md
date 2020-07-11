@@ -1,3 +1,16 @@
+# Release 1.3.0
+
+### Bugs resueltos
+- Arreglado el inicio donde se mostraban todos los libros sin importar el estado
+- Arreglado el detalle que no mostraba ISBN
+
+
+### Features agregadas
+- Se cambio el borde de las cards a rojo
+- Agregado un boton para comprar
+- Agregadas las paginas del libro al detalle
+- Se muestra la cantidad de libros de la categoria seleccionada
+
 # Release 1.2.1
 
 ### Bugs resueltos
